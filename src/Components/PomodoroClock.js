@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const PomodoroClock = () => {
     const [breakLength, setBreakLength] = useState(5);
@@ -6,26 +6,52 @@ const PomodoroClock = () => {
     const [timeLeft, setTimeLeft] = useState(sessionLength * 60);
     const [isRunning, setIsRunning] = useState(false);
     const [currentTimer, setCurrentTimer] = useState('Session');
-    const [audio] = useState(new Audio('https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav'));
+    const audioRef = useRef(null);
 
     const incrementSession = () => {
         if (!isRunning) {
-            setSessionLength(prev => prev + 1);
-            setTimeLeft((prev => (currentTimer === 'Session' ? (prev + 60) : prev)));
+            setSessionLength(prev => {
+                if (prev < 60) {
+                    const newSessionLength = prev + 1;
+                    setTimeLeft(currentTimer === 'Session' ? newSessionLength * 60 : timeLeft);
+                    return newSessionLength;
+                }
+                return prev;
+            })
         }
     };
     const decrementSession = () => {
-        if (!isRunning && sessionLength > 1) {
-            setSessionLength(prev => prev - 1);
-            setTimeLeft(prev => (currentTimer === 'Session' ? (prev - 60) : prev));
+        if (!isRunning) {
+            setSessionLength(prev => {
+                if (prev > 1) {
+                    const newSessionLength = prev - 1;
+                    setTimeLeft(currentTimer === 'Session' ? newSessionLength * 60 : timeLeft);
+                    return newSessionLength;
+                }
+                return prev;
+            });
         }
     };
     const incrementBreak = () => {
         if (!isRunning) {
-            setBreakLength(prev => prev + 1);
+            setBreakLength(prev => {
+                if (prev < 60) {
+                    return prev + 1;
+                }
+                return prev;
+            });
         }
-    }
-    const decrementBreak = () => setBreakLength(prev => (prev > 1 ? prev - 1 : 1));
+    };
+    const decrementBreak = () => {
+        if (!isRunning) {
+            setBreakLength(prev => {
+                if (prev > 1) {
+                    return prev - 1;
+                }
+                return prev;
+            });
+        }
+    };
 
     const formatTime = (seconds) => {
         const minutes = Math.floor(seconds / 60);
@@ -43,8 +69,10 @@ const PomodoroClock = () => {
         setCurrentTimer('Session');
         setTimeLeft(25 * 60);
         setIsRunning(false);
-        audio.pause();
-        audio.currentTime = 0;
+        if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+        }
     }
 
     useEffect(() => {
@@ -52,14 +80,19 @@ const PomodoroClock = () => {
             const interval = setInterval(() => {
                 setTimeLeft(prev => {
                     if (prev <= 0) {
+                        if (audioRef.current) {
+                            audioRef.current.play();
+                        }
                         if (currentTimer === 'Session') {
+                            // Switch to break
                             setCurrentTimer('Break');
                             setTimeLeft(breakLength * 60);
                         } else {
+                            // Switch to session
                             setCurrentTimer('Session');
                             setTimeLeft(sessionLength * 60);
                         }
-                        audio.play();
+                        
                         return 0;
                     }
                     return prev - 1;
@@ -67,7 +100,7 @@ const PomodoroClock = () => {
             }, 1000);
             return () => clearInterval(interval);
         }
-    }, [isRunning, currentTimer, breakLength, sessionLength, audio]);
+    }, [isRunning, currentTimer, breakLength, sessionLength]);
 
     return (
         <div>
@@ -93,6 +126,13 @@ const PomodoroClock = () => {
             <button id="reset" onClick={handleReset}>
                 Reset
             </button>
+            {/* Audio element for the timer beep */}
+            <audio
+                id="beep"
+                ref={audioRef}
+                src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
+                preload="auto"
+            />
 
         </div>
     );
