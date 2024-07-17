@@ -16,9 +16,94 @@ body {
 h1 {
   font-size: 50px;
   margin-bottom: 20px;
+  color: #ffffff;
 }
 
 .timer-label {
   font-size: 20px;
   margin-bottom: 10px;
+  color: #ffffff;
+}
+
+.time-left {
+  font-size: 40px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.btn {
+  border-radius: 5px;
+  box-shadow: 0 4px #000000;
+  background-color: #ffffff;
+  color: #0d0314;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 5px;
+}
+
+.btn:hover {
+  background-color: #d8cbcb;
+}
+
+.btn:active {
+  box-shadow: 0 2px #000000;
+  transform: translateY(2px);
+}
+
+.timer-control button {
+  margin: 10px;
+}
+
+.timer-wrapper {
+  background-color: #333333;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.break-wrapper,
+.session-wrapper {
+  margin-top: 12px;
+}
+
+.break,
+.session-label {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #ffffff;
+}
+
+span {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.start-stop {
+  background-color: #31bb51;
+  color: #ffffff;
+}
+
+.start-stop:hover {
+  background-color: #218838;
+}
+
+.start-stop:active {
+  background-color: #1e7e34;
+}
+
+.reset {
+  background-color: hsl(354, 97%, 63%);
+  color: #ffffff;
+}
+
+.reset:hover {
+  background-color: #c82333;
+}
+
+.reset:active {
+  background-color: #bd2130;
 }

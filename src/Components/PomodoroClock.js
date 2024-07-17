@@ -104,35 +104,42 @@ const PomodoroClock = () => {
     return (
         <div>
             <h1>Pomodoro Clock</h1>
-            <div id="timer-label" className='timer-label'>{currentTimer}</div>
-            <span id="time-left" className='time-left'>{formatTime(timeLeft)}</span>
-            <div id="break-label" className='break'>Break Length</div>
-            <div>
+            <div className='timer'>
+                <div className='timer-wrapper'>
+                    <div id="timer-label" className='timer-label'>{currentTimer}</div>
+                    <span id="time-left" className='time-left'>{formatTime(timeLeft)}</span>
+                </div>
+            </div>
+
+            <div className='break-wrapper'>
+                <div id="break-label" className='break'>Break Length</div>
                 <button id="break-decrement" className='increment btn' onClick={decrementBreak}>-</button>
                 <span id="break-length">{breakLength}</span>
                 <button id="break-increment" className='increment btn' onClick={incrementBreak}>+</button>
             </div>
-            <div id="session-label" className='session-label' >Session Length</div>
-            <div>
+
+            <div className='session-wrapper'>
+                <div id="session-label" className='session-label' >Session Length</div>
                 <button id="session-decrement" className='decrement btn' onClick={decrementSession}>-</button>
                 <span id="session-length">{sessionLength}</span>
                 <button id="session-increment" className='increment btn' onClick={incrementSession}>+</button>
             </div>
 
-            <button id="start_stop" onClick={handleStartStop}>
-                {isRunning ? 'Stop' : 'Start'}
-            </button>
-            <button id="reset" onClick={handleReset}>
-                Reset
-            </button>
-            {/* Audio element for the timer beep */}
-            <audio
-                id="beep"
-                ref={audioRef}
-                src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
-                preload="auto"
-            />
-
+            <div className='timer-control'>
+                <button className='start-stop btn' id="start_stop" onClick={handleStartStop}>
+                    {isRunning ? 'Stop' : 'Start'}
+                </button>
+                <button className='reset btn' id="reset" onClick={handleReset}>
+                    Reset
+                </button>
+                {/* Audio element for the timer beep */}
+                <audio
+                    id="beep"
+                    ref={audioRef}
+                    src="https://raw.githubusercontent.com/freeCodeCamp/cdn/master/build/testable-projects-fcc/audio/BeepSound.wav"
+                    preload="auto"
+                />
+            </div>
         </div>
     );
 };
