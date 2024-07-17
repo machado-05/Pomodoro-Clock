@@ -47,4 +47,7 @@ useEffect(() => {
 ```
 Project Link: [https://machado-05.github.io/Pomodoro-Clock/](https://machado-05.github.io/Pomodoro-Clock/)
 
+**PS:** Some of the tests may not work as expected because I opted for the user to hold the buttons instead of clicking them repeatedly.
+
+
 
