@@ -45,6 +45,6 @@ useEffect(() => {
     }
 }, [isRunning, currentTimer, breakLength, sessionLength]);
 ```
-Project Link: [https://github.com/machado-05/Pomodoro-Clock](https://github.com/machado-05/Pomodoro-Clock)
+Project Link: [https://machado-05.github.io/Pomodoro-Clock/](https://machado-05.github.io/Pomodoro-Clock/)
 
 
