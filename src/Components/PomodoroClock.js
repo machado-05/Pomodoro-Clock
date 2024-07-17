@@ -92,7 +92,6 @@ const PomodoroClock = () => {
                             setCurrentTimer('Session');
                             setTimeLeft(sessionLength * 60);
                         }
-                        
                         return 0;
                     }
                     return prev - 1;
@@ -105,19 +104,19 @@ const PomodoroClock = () => {
     return (
         <div>
             <h1>Pomodoro Clock</h1>
-            <div id="timer-label">{currentTimer}</div>
-            <span id="time-left">{formatTime(timeLeft)}</span>
-            <div id="break-label">Break Length</div>
+            <div id="timer-label" className='timer-label'>{currentTimer}</div>
+            <span id="time-left" className='time-left'>{formatTime(timeLeft)}</span>
+            <div id="break-label" className='break'>Break Length</div>
             <div>
-                <button id="break-decrement" onClick={decrementBreak}>-</button>
+                <button id="break-decrement" className='increment btn' onClick={decrementBreak}>-</button>
                 <span id="break-length">{breakLength}</span>
-                <button id="break-increment" onClick={incrementBreak}>+</button>
+                <button id="break-increment" className='increment btn' onClick={incrementBreak}>+</button>
             </div>
-            <div id="session-label">Session Length</div>
+            <div id="session-label" className='session-label' >Session Length</div>
             <div>
-                <button id="session-decrement" onClick={decrementSession}>-</button>
+                <button id="session-decrement" className='decrement btn' onClick={decrementSession}>-</button>
                 <span id="session-length">{sessionLength}</span>
-                <button id="session-increment" onClick={incrementSession}>+</button>
+                <button id="session-increment" className='increment btn' onClick={incrementSession}>+</button>
             </div>
 
             <button id="start_stop" onClick={handleStartStop}>
