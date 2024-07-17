@@ -21,7 +21,6 @@ This is a Pomodoro Clock web application built with React. It allows users to ma
 The timer logic checks if the timer is running and updates the timeLeft state every second. When the timer reaches zero, it switches between the session and break periods and plays a beep sound:
 
 ```jsx
-Copy code
 useEffect(() => {
     if (isRunning) {
         const interval = setInterval(() => {
