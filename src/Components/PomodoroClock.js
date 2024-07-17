@@ -7,6 +7,16 @@ const PomodoroClock = () => {
     const [isRunning, setIsRunning] = useState(false);
     const [currentTimer, setCurrentTimer] = useState('Session');
     const audioRef = useRef(null);
+    const intervalRef = useRef(null);
+
+    const startContinuousChange = (changeFunction) => {
+        changeFunction();
+        intervalRef.current = setInterval(changeFunction, 125);
+    }
+
+    const stopContinuousChange = () => {
+        clearInterval(intervalRef.current);
+    }
 
     const incrementSession = () => {
         if (!isRunning) {
@@ -17,7 +27,7 @@ const PomodoroClock = () => {
                     return newSessionLength;
                 }
                 return prev;
-            })
+            });
         }
     };
     const decrementSession = () => {
@@ -113,16 +123,40 @@ const PomodoroClock = () => {
 
             <div className='break-wrapper'>
                 <div id="break-label" className='break'>Break Length</div>
-                <button id="break-decrement" className='increment btn' onClick={decrementBreak}>-</button>
+                <button
+                    id="break-decrement"
+                    className='increment btn'
+                    onMouseDown={() => startContinuousChange(decrementBreak)}
+                    onMouseUp={stopContinuousChange}
+                    onMouseLeave={stopContinuousChange}
+                >-</button>
                 <span id="break-length">{breakLength}</span>
-                <button id="break-increment" className='increment btn' onClick={incrementBreak}>+</button>
+                <button
+                    id="break-increment"
+                    className='increment btn'
+                    onMouseDown={() => startContinuousChange(incrementBreak)}
+                    onMouseUp={stopContinuousChange}
+                    onMouseLeave={stopContinuousChange}
+                >+</button>
             </div>
 
             <div className='session-wrapper'>
                 <div id="session-label" className='session-label' >Session Length</div>
-                <button id="session-decrement" className='decrement btn' onClick={decrementSession}>-</button>
+                <button
+                    id="session-decrement"
+                    className='decrement btn'
+                    onMouseDown={() => startContinuousChange(decrementSession)}
+                    onMouseUp={stopContinuousChange}
+                    onMouseLeave={stopContinuousChange}
+                >-</button>
                 <span id="session-length">{sessionLength}</span>
-                <button id="session-increment" className='increment btn' onClick={incrementSession}>+</button>
+                <button
+                    id="session-increment"
+                    className='increment btn'
+                    onMouseDown={() => startContinuousChange(incrementSession)}
+                    onMouseUp={stopContinuousChange}
+                    onMouseLeave={stopContinuousChange}
+                >+</button>
             </div>
 
             <div className='timer-control'>
